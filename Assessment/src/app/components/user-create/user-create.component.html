@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Create New User</h1>
+<div mat-dialog-content class="d-flex flex-column">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Job</mat-label>
+        <input matInput type="text" class="form-control" id="job" required [(ngModel)]="user.job" name="job">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="justify-content-right">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="createUser()">Create User</button>
+</div>
