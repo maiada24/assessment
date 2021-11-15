@@ -4,38 +4,30 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
-  selector: 'app-user-create',
-  templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.scss']
+  selector: 'app-user-delete',
+  templateUrl: './user-delete.component.html',
+  styleUrls: ['./user-delete.component.scss']
 })
-export class UserCreateComponent implements OnInit {
+export class UserDeleteComponent implements OnInit {
 
-  user = {
-    name: '',
-    job: ''
-  };
+  userToDelete: any;
   submitted = false;
 
-  constructor(private usersService: UsersService,
-    private _snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<UserCreateComponent>,
+  constructor(private usersService: UsersService, private _snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<UserDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    this.userToDelete = this.data;
   }
 
-  createUser(): void {
-    const data = {
-      name: this.user.name,
-      job: this.user.job
-    };
-
-    this.usersService.createUser(data)
+  deleteUser(): void {
+    this.usersService.deleteUser(this.userToDelete.id)
       .subscribe(
         response => {
           this.submitted = true;
           this.dialogRef.close();
-          this._snackBar.open('User Created Successfully', 'OK', {
+          this._snackBar.open('User Deleted Successfully', 'OK', {
             duration: 5000
           });
         },

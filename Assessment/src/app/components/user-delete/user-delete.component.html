@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete User</h1>
+<div mat-dialog-content class="d-flex flex-column">
+    <p>Are you sure you want to delete <strong>{{userToDelete?.last_name}}</strong> ?</p>
+</div>
+<div mat-dialog-actions class="justify-content-right">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="deleteUser()">Delete</button>
+</div>

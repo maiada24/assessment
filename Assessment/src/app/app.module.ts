@@ -4,11 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -17,8 +17,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserCreateComponent } from './components/user-create/user-create.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
-import { UsersService } from './services/users.service';
+import { UsersService } from './services/users/users.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserDeleteComponent } from './components/user-delete/user-delete.component';
+import { HttpConfigInterceptor } from './services/interceptor/http-interceptor.service';
+import { LoginComponent } from './components/login/login.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
 
 
 @NgModule({
@@ -26,12 +30,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent,
     UserListComponent,
     UserCreateComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UserDeleteComponent,
+    LoginComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
@@ -47,12 +56,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UserCreateComponent
   ],
   entryComponents: [
-    UserCreateComponent
+    UserCreateComponent,
+    UserDeleteComponent
   ],
   providers: [{
     provide: MatDialogRef,
     useValue: {}
   },
+  { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     UsersService],
   bootstrap: [AppComponent]
 })

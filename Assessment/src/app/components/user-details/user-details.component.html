@@ -1,1 +1,22 @@
-<p>user-details works!</p>
+<h3 class="details-header">User Details</h3>
+<div class="container" *ngIf="user">
+    <div class="details-container">
+        <div class="left">
+            <p><strong>ID:</strong> {{user.id}}</p>
+            <p><strong>First Name:</strong> {{user.first_name}}</p>
+            <p><strong>Last Name:</strong> {{user.last_name}}</p>
+            <p><strong>Email:</strong> {{user.email}}</p>
+        </div>
+        <div class="right">
+            <img [src]="user.avatar" alt="">
+        </div>
+    </div>
+    <div class="back-btn">
+        <a mat-raised-button color="primary" [routerLink]="['/users']">
+            <mat-icon class="m-0">arrow_back_ios</mat-icon>Back
+        </a>
+    </div>
+</div>
+<div *ngIf="errorMsg !== ''">
+    <p class="text-center">{{errorMsg}}</p>
+</div>

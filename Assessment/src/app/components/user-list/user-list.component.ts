@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersService } from 'src/app/services/users/users.service';
 import { UserCreateComponent } from '../user-create/user-create.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserDeleteComponent } from '../user-delete/user-delete.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -18,9 +20,9 @@ export class UserListComponent implements OnInit {
 
   // MatPaginator Output
   pageEvent: PageEvent;
-  breakpoint:any;
+  breakpoint: any;
 
-  constructor(private usersService: UsersService, public dialog: MatDialog) { }
+  constructor(private usersService: UsersService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -49,15 +51,31 @@ export class UserListComponent implements OnInit {
     this.getUsers(event.pageIndex + 1);
   }
 
-  openDialog(): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(UserCreateComponent, {
       width: '500px',
-      data: {name: "", job: ""},
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  openDeleteDialog(user): void {
+    const dialogRef = this.dialog.open(UserDeleteComponent, {
+      width: '500px',
+      data: user,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/users']);
   }
 
 }
