@@ -1,7 +1,7 @@
-#The goal of this task:
+# The goal of this task:
 is to check my knowledge, speed, code quality and UI background.
 
-#RESTful web service (https://reqres.in/) through the following endpoints:
+# RESTful web service (https://reqres.in/) through the following endpoints:
 
 An API endpoint for Authentication (login page)
 An API endpoint for listing users (Users list page).
