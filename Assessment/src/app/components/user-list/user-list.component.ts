@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { UsersService } from 'src/app/services/users/users.service';
 import { UserCreateComponent } from '../user-create/user-create.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { Router } from '@angular/router';
 
@@ -17,8 +17,6 @@ export class UserListComponent implements OnInit {
   length: number;
   pageSize: number;
   pageSizeOptions: number[] = [6];
-
-  // MatPaginator Output
   pageEvent: PageEvent;
   breakpoint: any;
 
@@ -26,11 +24,6 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.breakpoint = (window.innerWidth <= 760) ? 2 : 4;
-  }
-
-  onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 760) ? 2 : 4;
   }
 
   getUsers(page = 1): void {
@@ -47,35 +40,31 @@ export class UserListComponent implements OnInit {
   }
 
   //get users at selected page
-  onPaginate(event) {
+  onPaginate(event: any) {
     this.getUsers(event.pageIndex + 1);
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(UserCreateComponent, {
+    this.dialog.open(UserCreateComponent, {
       width: '500px',
       data: {},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
   openDeleteDialog(user): void {
-    const dialogRef = this.dialog.open(UserDeleteComponent, {
+    this.dialog.open(UserDeleteComponent, {
       width: '500px',
       data: user,
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  updateUser(user) {
+    this.router.navigate([`/users/update/${user.id}`]);
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/users']);
+    this.router.navigate(['/login']);
   }
 
 }

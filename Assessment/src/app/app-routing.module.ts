@@ -6,6 +6,7 @@ import { UserCreateComponent } from './components/user-create/user-create.compon
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'users/:id', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'create', component: UserCreateComponent },
+  { path: 'users/update/:id', component: UserUpdateComponent }
 ];
 
 @NgModule({

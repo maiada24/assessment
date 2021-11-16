@@ -21,7 +21,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          // console.log('event--->>>', event);
         }
         return event;
       }),
@@ -31,7 +30,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           reason: error && error.error && error.error.reason ? error.error.reason : '',
           status: error.status
         };
-        // console.log('Error--->>>', error);
         if (error.status == 404) {
           return throwError("User Not Found");
         }
